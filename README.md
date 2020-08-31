@@ -1,4 +1,4 @@
-# CS385_REACT_PROJECT
+# create-react-investment-project
 url: https://create-react-investment.firebaseapp.com/
 
 **Project description:**
