@@ -1,4 +1,4 @@
-# create-react-investment-project
+# create-react-investment
 url: https://create-react-investment.firebaseapp.com/
 
 **Project description:**
