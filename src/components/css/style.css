@@ -1,0 +1,122 @@
+/*
+    white-theme : 
+    text_nav_or_critical - 333333
+    text - f8f8f8
+    background - dfdfdf
+    borders - 555555
+    nav-background eeeeee
+*/
+
+html,
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+.nav-bar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fafbfc;
+    color: #333333;
+}
+
+.back-btn {
+    font-size: 40px;
+    color: red;
+}
+
+.user-projects {
+    margin-top: 40px;
+    border: 1px solid #e1e2e6;
+    box-shadow: 0px 0px 25px -2px rgba(241, 242, 246, 0.8);
+}
+
+.user-projects:last-child {
+    margin-bottom: 40px;
+}
+
+.user-projects,
+.form-struct,
+.user-display {
+    box-shadow: 0px 0px 25px -2px rgba(241, 242, 246, 0.8);
+    background-color: #f1f2f6;
+    border: 1px solid #e1e2e6;
+    border-radius: 8px;
+    color: #535c68;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.user-projects-img {
+    height: 600px;
+}
+
+.like-btn,
+.dislike-btn {
+    color: white;
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.like-btn:hover,
+.dislike-btn:hover,
+.like-btn:focus,
+.dislike-btn:focus {
+    cursor: pointer;
+    outline: 0;
+}
+
+.like-btn:hover {
+    color: #0be881;
+    border: 1px solid transparent;
+    background: transparent;
+    outline: 0;
+}
+
+.dislike-btn:hover {
+    color: red;
+    border: 1px solid transparent;
+    background: transparent;
+    outline: 0;
+}
+
+.icon-size {
+    transition: color 1s ease-in-out;
+    color: #1e272e;
+    font-size: 40px;
+}
+
+.icon-size:hover {
+    transition: color 1s ease-in-out;
+    color: #485460;
+}
+
+.hover {
+    cursor: pointer;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.form-struct {
+    padding: 30px 30px;
+}
+
+.match-struct {
+    margin: 20px 0;
+}
+
+#uploader {
+    padding-bottom: 40px;
+}
+
+.danger {
+    color: #ea2027;
+}
+
+.success {
+    color: #4cd137;
+}
