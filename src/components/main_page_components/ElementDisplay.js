@@ -1,42 +1,8 @@
 import React from "react";
 import { Component } from "react";
 import { readStorage } from "../contact_server/ContactServer";
-//Element display component will load any project examples when put into use
-/*
-  Liking and disling projects this was an intended feature for accounts of type investors 
-  
-  -- state --
-    expand : Allows expanding of projects to showcase all the description
-    image : Used to showcase the image
 
-  -- functions --
-    UNSAFE_componentWillMount : Gets the image
-    expandBtn : Expands the card to showcase the whole description by changing state
-
-  OMITTED FEATURE ( to prevent feature creep ):
-  
-  this.state = {
-  //total: 0
-  };
-
-  // likeBtn() {
-  //   this.setState({ total: this.state.total + 1 });
-  // }
-  // dislikeBtn() {
-  //   this.setState({ total: this.state.total - 1 });
-  // }
-
-  <button className="like-btn" onClick={this.likeBtn}>
-    <i className="material-icons">keyboard_arrow_up</i>
-  </button>
-    <span className="container">{this.state.total}</span>
-  <button className="dislike-btn" onClick={this.dislikeBtn}>
-    <i className="material-icons">keyboard_arrow_down</i>
-  </button>
-
-*/
-
-class ElementDisplay extends Component {
+export default class ElementDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,5 +61,3 @@ class ElementDisplay extends Component {
         );
     }
 }
-
-export default ElementDisplay;

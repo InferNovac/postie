@@ -1,13 +1,13 @@
 import React from "react";
 
-const Submit = (props) => {
+const Submit = ({ formValid, buttonType, buttonName, buttonHandler }) => {
     return (
         <div className="form-submit">
             <button // Provides a template for our buttons, in both creation and log in page
-                disabled={props.formValid}
-                type={props.buttonType}
-                name={props.buttonName}
-                onClick={props.buttonHandler}
+                disabled={formValid}
+                type={buttonType}
+                name={buttonName}
+                onClick={buttonHandler}
             />
         </div>
     );

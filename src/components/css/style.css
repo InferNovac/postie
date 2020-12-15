@@ -7,24 +7,32 @@
     nav-background eeeeee
 */
 
+:root {
+    font-size: 16px;
+    --bg-color: #f1f2f6;
+    --danger: #ea2027;
+    --success: #4cd137;
+    --icon: #1e272e;
+    --icon-hover: #485460;
+}
+
 html,
 body {
     font-family: "Roboto", sans-serif;
 }
 
 body {
-    background-color: white;
+    background-color: var(--bg-color);
+}
+
+#uploader {
+    padding-bottom: 40px;
 }
 
 .nav-bar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-color: #fafbfc;
     color: #333333;
-}
-
-.back-btn {
-    font-size: 40px;
-    color: red;
 }
 
 .user-projects {
@@ -53,44 +61,15 @@ body {
     height: 600px;
 }
 
-.like-btn,
-.dislike-btn {
-    color: white;
-    background: transparent;
-    border: 1px solid transparent;
-}
-
-.like-btn:hover,
-.dislike-btn:hover,
-.like-btn:focus,
-.dislike-btn:focus {
-    cursor: pointer;
-    outline: 0;
-}
-
-.like-btn:hover {
-    color: #0be881;
-    border: 1px solid transparent;
-    background: transparent;
-    outline: 0;
-}
-
-.dislike-btn:hover {
-    color: red;
-    border: 1px solid transparent;
-    background: transparent;
-    outline: 0;
-}
-
 .icon-size {
     transition: color 1s ease-in-out;
-    color: #1e272e;
+    color: var(--icon);
     font-size: 40px;
 }
 
 .icon-size:hover {
     transition: color 1s ease-in-out;
-    color: #485460;
+    color: var(--icon-hover);
 }
 
 .hover {
@@ -109,14 +88,10 @@ body {
     margin: 20px 0;
 }
 
-#uploader {
-    padding-bottom: 40px;
-}
-
 .danger {
-    color: #ea2027;
+    color: var(--danger);
 }
 
 .success {
-    color: #4cd137;
+    color: var(--success);
 }

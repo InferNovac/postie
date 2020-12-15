@@ -1,10 +1,8 @@
 import React from "react";
-import ElementDisplay from "../main_page_components/ElementDisplay";
 import { Component } from "react";
+import ElementDisplay from "../main_page_components/ElementDisplay";
 
-//UserPage loads all of a user's projects, as opposed to all of the projects on the database.
-
-class UserPage extends Component {
+export default class UserPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,5 +38,3 @@ class UserPage extends Component {
         return <div className="user-page">{projects}</div>;
     }
 }
-
-export default UserPage;

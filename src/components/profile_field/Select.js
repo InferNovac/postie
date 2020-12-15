@@ -1,16 +1,16 @@
 import React from "react";
 
-const Select = (props) => {
+const Select = ({ title, value, handleChange, placeholder, options }) => {
     return (
         <div
             className="form-group"
             //A template for our drop down menus at form creation
         >
-            <label> {props.title} </label>
+            <label> {title} </label>
             <select //Template for select
                 className="form-control"
-                value={props.value}
-                onChange={props.handleChange}
+                value={value}
+                onChange={handleChange}
             >
                 required
                 <option
@@ -18,9 +18,9 @@ const Select = (props) => {
                     disabled
                     //Template for our options, with a default option that is non selectable
                 >
-                    {props.placeholder}
+                    {placeholder}
                 </option>
-                {props.options.map((field) => {
+                {options.map((field) => {
                     //Allows us to use an array of choices to be displayed rather than create each option within the render portion
                     return (
                         <option key={field} value={field} label={field}>

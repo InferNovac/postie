@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import Select from "../profile_field/Select";
 import Input from "../profile_field/Input";
 import Match from "../profile_field/Match";
-
 import {
     writeUserData,
     checkUserName,
     checkUserEmail,
 } from "../contact_server/ContactServer";
-
 import { passwordHash } from "../auxilary_functions/Hash";
 
-class CreateProfile extends Component {
+export default class CreateProfile extends Component {
     constructor(props) {
         super(props);
 
@@ -450,5 +448,3 @@ class CreateProfile extends Component {
         );
     }
 }
-
-export default CreateProfile;

@@ -51,14 +51,14 @@ function errorHandler(e) {
     }
 }
 
-async function readMaxKey() {
+const readMaxKey = async () => {
     const fetch = firebase.database().ref("mPosts/");
     const getKey = await fetch.once("value");
     const val = getKey.val();
     return (userAuth.postKey = val);
-}
+};
 
-export function writeUserData(
+export const writeUserData = (
     userName,
     name,
     email,
@@ -66,7 +66,7 @@ export function writeUserData(
     password,
     userType,
     salt
-) {
+) => {
     let user = {
         name: name,
         email: email,
@@ -81,9 +81,9 @@ export function writeUserData(
         .ref("users/" + userName)
         .set(user, errorHandler);
     return userAuth.Error;
-}
+};
 
-export async function checkUserName(userName) {
+export const checkUserName = async (userName) => {
     const fetch = firebase.database().ref("users/" + userName);
     const checkUser = await fetch.once("value");
     if (checkUser.val() !== null) {
@@ -91,9 +91,9 @@ export async function checkUserName(userName) {
     } else {
         return false;
     }
-}
+};
 
-export async function checkUserEmail(email) {
+export const checkUserEmail = async (email) => {
     const fetch = firebase.database().ref("users/");
     const checkUser = await fetch.once("value");
 
@@ -103,9 +103,9 @@ export async function checkUserEmail(email) {
         }
     }
     return false;
-}
+};
 
-export async function readUserData(userName, password) {
+export const readUserData = async (userName, password) => {
     const fetch = firebase.database().ref("users/" + userName);
     const checkUser = await fetch.once("value");
 
@@ -119,9 +119,9 @@ export async function readUserData(userName, password) {
     } else {
         return (userAuth.located = false);
     }
-}
+};
 
-export async function writePostData(title, body, userName, imageName) {
+export const writePostData = async (title, body, userName, imageName) => {
     await readMaxKey();
 
     let post = {
@@ -138,9 +138,9 @@ export async function writePostData(title, body, userName, imageName) {
         firebase.database().ref("mPosts/").set(userAuth.postKey, errorHandler);
     }
     return userAuth.Error;
-}
+};
 
-export async function writeStorage(image) {
+export const writeStorage = async (image) => {
     const storageUpload = firebase.storage().ref();
     const checkFinish = storageUpload.child(image.name).put(image);
     if (checkFinish.snapshot.ref !== null) {
@@ -148,15 +148,15 @@ export async function writeStorage(image) {
     } else {
         return false;
     }
-}
+};
 
-export async function readStorage(imageName) {
+export const readStorage = async (imageName) => {
     const storage = firebase.storage().ref().child(imageName);
     const image = await storage.getDownloadURL();
     return image;
-}
+};
 
-export async function readAllPost() {
+export const readAllPost = async () => {
     const fetch = firebase.database().ref("posts/");
     const getPost = await fetch.once("value");
     const storePosts = [];
@@ -171,4 +171,4 @@ export async function readAllPost() {
     } else {
         return false;
     }
-}
+};

@@ -2,12 +2,7 @@ import React from "react";
 import { Component } from "react";
 import { writeStorage, writePostData } from "../contact_server/ContactServer";
 
-/*
-  Allows uploading a project there is few checks here which have to be ticked to upload a project
-  self-explanatory code nothing complex occurs here.
-
-*/
-class UploadProject extends Component {
+export default class UploadProject extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -150,4 +145,3 @@ class UploadProject extends Component {
         );
     }
 }
-export default UploadProject;
