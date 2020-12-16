@@ -3,26 +3,6 @@ import "firebase/database";
 import "firebase/storage";
 import { passwordVerify } from "../auxilary_functions/Hash";
 
-/* 
-
-  Intializes FireBase and has all important functions to read and write to the server
-  We utilize async to make sure the application waits for these executions before proceeding to do other things
-
-  -- functions --
-  
-    errorHandler : Just lets us know if any error has occured with a boolean.
-    readMaxKey : Gets the max key off firebase to make sure the next post doesn't overwrite any other key for other posts.
-    writeUserData : Specifies the structure of the user object.
-    checkUserName : Looks up if a user-name already exists in the database
-    checkUserEmail : Looks up if the email has been used in a different account
-    readUserData : Pull of the user-data based on the username if it a wrong user-name it will return false
-    writePostData : Makes a new post with the specified structure and gets the newest key to post with using readMaxKey
-    writeStorage : Used for saving images on the databse
-    readStorage : Pulls of the images
-    readAllPosts : Gets all the posts which are on the database 
-
-*/
-
 const firebaseConfig = {
     apiKey: "AIzaSyBdpf_wxtSI1tFtQCNNST1q-OXlfF6K0kU",
     authDomain: "create-react-investment.firebaseapp.com",
@@ -35,140 +15,150 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let userAuth = {
-    located: null,
-    Error: null,
-    post: null,
-    postKey: 0,
-    found: false,
-};
-
-function errorHandler(e) {
-    if (e) {
-        return (userAuth.Error = true);
-    } else {
-        return (userAuth.Error = false);
-    }
-}
-
-const readMaxKey = async () => {
-    const fetch = firebase.database().ref("mPosts/");
-    const getKey = await fetch.once("value");
-    const val = getKey.val();
-    return (userAuth.postKey = val);
-};
-
-export const writeUserData = (
+export const addUserData = (
     userName,
-    name,
-    email,
-    gender,
-    password,
-    userType,
-    salt
-) => {
-    let user = {
-        name: name,
-        email: email,
-        gender: gender,
-        password: password,
-        salt: salt,
-        userType: userType,
-    };
-
-    firebase
-        .database()
-        .ref("users/" + userName)
-        .set(user, errorHandler);
-    return userAuth.Error;
-};
-
-export const checkUserName = async (userName) => {
-    const fetch = firebase.database().ref("users/" + userName);
-    const checkUser = await fetch.once("value");
-    if (checkUser.val() !== null) {
-        return true;
-    } else {
-        return false;
+    newUser = {
+        email: "Default@gg.com",
+        gender: "Default",
+        password: "Default",
+        salt: "DefaultSalt",
+        userType: "Default",
     }
-};
+) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`users/${userName}`)
+            .set(newUser, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+    });
 
-export const checkUserEmail = async (email) => {
-    const fetch = firebase.database().ref("users/");
-    const checkUser = await fetch.once("value");
+export const addToEmailList = (userName, email) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`emails/${userName}`)
+            .set(email, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+    });
 
-    for (let i in checkUser.val()) {
-        if (checkUser.val()[i].email === email) {
-            return true;
-        }
+export const addPostData = (
+    post = {
+        title: "DefaultTitle",
+        body: "DefaultBody",
+        userName: "Default",
+        imageName: "DefaultImage",
     }
-    return false;
-};
+) =>
+    new Promise((resolve, reject) => {
+        const keyPost = firebase.database().ref().child("posts").push().key;
 
-export const readUserData = async (userName, password) => {
-    const fetch = firebase.database().ref("users/" + userName);
-    const checkUser = await fetch.once("value");
+        firebase
+            .database()
+            .ref(`posts/${keyPost}`)
+            .set(post, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+    });
 
-    if (checkUser.val() === null) {
-        return (userAuth.located = false);
-    }
+export const addToStorage = (image) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .storage()
+            .ref()
+            .child(image.name)
+            .put(image)
+            .then((response) => {
+                if (response.ref !== null) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch((error) => reject(error));
+    });
 
-    let verification = passwordVerify(password, checkUser.val().salt);
-    if (checkUser.val().password === verification) {
-        return (userAuth.located = checkUser.val());
-    } else {
-        return (userAuth.located = false);
-    }
-};
+export const checkUserName = (userName = "default") =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`emails/${userName}`)
+            .once("value")
+            .then((response) => {
+                if (response.val() !== null) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch((error) => reject(error));
+    });
 
-export const writePostData = async (title, body, userName, imageName) => {
-    await readMaxKey();
+export const checkUserEmail = (emailToCheck = "default@gg.com") =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`emails/`)
+            .once("value")
+            .then((response) => {
+                const users = Object.values(response.val());
+                for (const email of users) {
+                    if (email === emailToCheck) {
+                        resolve(true);
+                    }
+                }
+                resolve(false);
+            })
+            .catch((error) => reject(error));
+    });
 
-    let post = {
-        title: title,
-        body: body,
-        imageName: imageName,
-        userName: userName,
-    };
-    firebase
-        .database()
-        .ref("posts/" + ++userAuth.postKey)
-        .set(post, errorHandler);
-    if (!userAuth.Error) {
-        firebase.database().ref("mPosts/").set(userAuth.postKey, errorHandler);
-    }
-    return userAuth.Error;
-};
+export const checkUserData = (userName, passwordToCheck) =>
+    new Promise((resolve, reject) => {
+        firebase.database
+            .ref(`emails/${userName}}`)
+            .once("value")
+            .then((response) => {
+                const { salt, password } = response.val();
 
-export const writeStorage = async (image) => {
-    const storageUpload = firebase.storage().ref();
-    const checkFinish = storageUpload.child(image.name).put(image);
-    if (checkFinish.snapshot.ref !== null) {
-        return true;
-    } else {
-        return false;
-    }
-};
+                if (response.val() === null) {
+                    resolve(false);
+                }
 
-export const readStorage = async (imageName) => {
-    const storage = firebase.storage().ref().child(imageName);
-    const image = await storage.getDownloadURL();
-    return image;
-};
+                resolve(password === passwordVerify(passwordToCheck, salt));
+            })
+            .catch((error) => reject(error));
+    });
 
-export const readAllPost = async () => {
-    const fetch = firebase.database().ref("posts/");
-    const getPost = await fetch.once("value");
-    const storePosts = [];
-    const loop = function () {
-        for (let i in getPost.val()) {
-            storePosts.push(getPost.val()[i]);
-        }
-        return storePosts;
-    };
-    if (getPost.val() !== null) {
-        return loop();
-    } else {
-        return false;
-    }
-};
+export const checkStorage = (imageName) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .storage()
+            .ref()
+            .child(imageName)
+            .getDownloadURL((response) => resolve(response))
+            .catch((error) => reject(error));
+    });
+
+export const checkAllPosts = () =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref("posts/")
+            .once("value")
+            .then((response) => resolve(Object.values(response.val())))
+            .catch((error) => reject(error));
+    });

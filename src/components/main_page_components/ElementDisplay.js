@@ -1,28 +1,9 @@
-import React from "react";
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { readStorage } from "../contact_server/ContactServer";
 
-export default class ElementDisplay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            expand: false,
-            image: this.props.image,
-        };
-        this.expandBtn = this.expandBtn.bind(this);
-    }
+/*
 
-    expandBtn() {
-        this.setState({ expand: !this.state.expand });
-    }
-
-    async UNSAFE_componentWillMount() {
-        const imageGet = await readStorage(this.state.image);
-        this.setState({ image: imageGet });
-    }
-
-    render() {
-        const showcasePreview = !this.state.expand
+const showcasePreview = !this.state.expand
             ? this.props.projectDes.substring(0, 400)
             : this.props.projectDes;
         const showProfIcon =
@@ -59,5 +40,17 @@ export default class ElementDisplay extends Component {
                 </div>
             </div>
         );
-    }
-}
+
+
+*/
+
+const Image = ({ imageName }) =>
+    readStorage(imageName)
+        .then((image) => <img src={image} alt="an image" />)
+        .catch((error) => console.error(error));
+
+const ElementDisplay = ({ imageName }) => {
+    <Image imageName={imageName} />;
+};
+
+export default ElementDisplay;

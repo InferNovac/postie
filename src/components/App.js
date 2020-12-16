@@ -1,13 +1,8 @@
-import "./css/style.css";
 import React from "react";
-import { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import MainPage from "./structured_pages/MainPage";
-import CreateProfile from "./structured_pages/CreateProfile";
-import UploadProject from "./structured_pages/UploadProject";
-import LoginProfile from "./structured_pages/LoginProfile";
-import LoadingScreen from "./structured_pages/LoadingScreen";
-import UserPage from "./structured_pages/UserPage";
-import { readAllPost } from "./contact_server/ContactServer";
+import "./css/style.css";
+
 /* 
   -- REFERENCES -- 
   Google Material Icons : url(https://material.io/resources/icons/)
@@ -41,143 +36,162 @@ import { readAllPost } from "./contact_server/ContactServer";
 
 */
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.cClick = this.cClick.bind(this);
-        this.lClick = this.lClick.bind(this);
-        this.bClick = this.bClick.bind(this);
-        this.aClick = this.aClick.bind(this);
-        this.finalLogIn = this.finalLogIn.bind(this); //Passed in to log in
-        this.outClick = this.outClick.bind(this);
-        this.refresh = this.refresh.bind(this);
-        this.state = {
-            projects: null,
-            load: false,
-            userName: "Guest",
-            loggedIn: false,
-            prevPage: null,
-            displayScreen: null,
-        };
-    }
+const App = () => (
+    <Router>
+        <Switch>
+            <Route exact path="/">
+                <MainPage />
+            </Route>
+            <Route exact path="/sign-up">
 
-    refresh() {
-        this.UNSAFE_componentWillMount();
-    }
+            </Route>
+            <Route exact path="/sign-in">
 
-    finalLogIn(userName) {
-        this.setState({ userName: userName });
-        this.setState({ loggedIn: true });
-        this.setState({ displayScreen: this.state.prevPage });
-    }
+            </Route>
+            <Route exact path="/upload">
+                
+            </Route>
+        </Switch>
+    </Router>
+);
 
-    outClick() {
-        this.callLoad();
-        this.setState({ loggedIn: false });
-        this.setState({ userName: "Guest" });
-        this.refresh();
-    }
+// class App extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.cClick = this.cClick.bind(this);
+//         this.lClick = this.lClick.bind(this);
+//         this.bClick = this.bClick.bind(this);
+//         this.aClick = this.aClick.bind(this);
+//         this.finalLogIn = this.finalLogIn.bind(this); //Passed in to log in
+//         this.outClick = this.outClick.bind(this);
+//         this.refresh = this.refresh.bind(this);
+//         this.state = {
+//             projects: null,
+//             load: false,
+//             userName: "Guest",
+//             loggedIn: false,
+//             prevPage: null,
+//             displayScreen: null,
+//         };
+//     }
 
-    cClick() {
-        this.callLoad();
-        this.setState({
-            displayScreen: <CreateProfile finalLogIn={this.finalLogIn} />,
-        });
-    }
+//     refresh() {
+//         this.UNSAFE_componentWillMount();
+//     }
 
-    aClick() {
-        this.callLoad();
-        this.setState({
-            displayScreen: <UploadProject uName={this.state.userName} />,
-        });
-    }
+//     finalLogIn(userName) {
+//         this.setState({ userName: userName });
+//         this.setState({ loggedIn: true });
+//         this.setState({ displayScreen: this.state.prevPage });
+//     }
 
-    lClick() {
-        this.callLoad();
-        this.setState({
-            displayScreen: <LoginProfile finalLogIn={this.finalLogIn} />,
-        });
-    }
+//     outClick() {
+//         this.callLoad();
+//         this.setState({ loggedIn: false });
+//         this.setState({ userName: "Guest" });
+//         this.refresh();
+//     }
 
-    pClick(userName) {
-        this.callLoad();
-        const projects = this.state.projects.filter(function (o) {
-            return o.userName === userName;
-        });
-        this.setState({
-            displayScreen: <UserPage uName={userName} projects={projects} />,
-            prevPage: this.state.displayScreen,
-        });
-    }
+//     cClick() {
+//         this.callLoad();
+//         this.setState({
+//             displayScreen: <CreateProfile finalLogIn={this.finalLogIn} />,
+//         });
+//     }
 
-    bClick() {
-        this.callLoad();
-        this.refresh();
-    }
+//     aClick() {
+//         this.callLoad();
+//         this.setState({
+//             displayScreen: <UploadProject uName={this.state.userName} />,
+//         });
+//     }
 
-    callLoad() {
-        this.setState({ load: false, prevPage: this.state.displayScreen });
-        this.componentDidMount();
-    }
+//     lClick() {
+//         this.callLoad();
+//         this.setState({
+//             displayScreen: <LoginProfile finalLogIn={this.finalLogIn} />,
+//         });
+//     }
 
-    async UNSAFE_componentWillMount() {
-        const getAll = await readAllPost();
-        if (getAll !== false) {
-            this.setState({
-                displayScreen: (
-                    <MainPage
-                        cClick={this.cClick}
-                        lClick={this.lClick}
-                        pClick={this.pClick}
-                        aClick={this.aClick}
-                        projectBase={getAll}
-                        userName={this.state.userName}
-                        passThis={this}
-                        outClick={this.outClick}
-                    />
-                ),
-                projects: getAll,
-            });
-        }
-    }
+//     pClick(userName) {
+//         this.callLoad();
+//         const projects = this.state.projects.filter(function (o) {
+//             return o.userName === userName;
+//         });
+//         this.setState({
+//             displayScreen: <UserPage uName={userName} projects={projects} />,
+//             prevPage: this.state.displayScreen,
+//         });
+//     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({ load: true });
-        }, 1000);
-    }
+//     bClick() {
+//         this.callLoad();
+//         this.refresh();
+//     }
 
-    switchPages() {
-        if (!this.state.load) {
-            return <LoadingScreen />;
-        }
-        if (this.state.displayScreen !== null) {
-            return this.state.displayScreen; //This allows us to wait while the data is being pulled from the server
-        } else {
-            return <LoadingScreen />;
-        }
-    }
+//     callLoad() {
+//         this.setState({ load: false, prevPage: this.state.displayScreen });
+//         this.componentDidMount();
+//     }
 
-    render() {
-        const backButton =
-            this.state.prevPage !== null ? (
-                <div className="container fixed-bottom">
-                    <span className="hover" onClick={this.bClick}>
-                        <i className="material-icons fixed-bottom back-btn">
-                            cached
-                        </i>
-                    </span>
-                </div>
-            ) : (
-                ""
-            );
-        return (
-            <div className="App">
-                {backButton}
-                {this.switchPages()}
-            </div>
-        );
-    }
-}
+//     async UNSAFE_componentWillMount() {
+//         const getAll = await readAllPost();
+//         if (getAll !== false) {
+//             this.setState({
+//                 displayScreen: (
+//                     <MainPage
+//                         cClick={this.cClick}
+//                         lClick={this.lClick}
+//                         pClick={this.pClick}
+//                         aClick={this.aClick}
+//                         projectBase={getAll}
+//                         userName={this.state.userName}
+//                         passThis={this}
+//                         outClick={this.outClick}
+//                     />
+//                 ),
+//                 projects: getAll,
+//             });
+//         }
+//     }
+
+//     componentDidMount() {
+//         setTimeout(() => {
+//             this.setState({ load: true });
+//         }, 1000);
+//     }
+
+//     switchPages() {
+//         if (!this.state.load) {
+//             return <LoadingScreen />;
+//         }
+//         if (this.state.displayScreen !== null) {
+//             return this.state.displayScreen; //This allows us to wait while the data is being pulled from the server
+//         } else {
+//             return <LoadingScreen />;
+//         }
+//     }
+
+//     render() {
+//         const backButton =
+//             this.state.prevPage !== null ? (
+//                 <div className="container fixed-bottom">
+//                     <span className="hover" onClick={this.bClick}>
+//                         <i className="material-icons fixed-bottom back-btn">
+//                             cached
+//                         </i>
+//                     </span>
+//                 </div>
+//             ) : (
+//                 ""
+//             );
+//         return (
+//             <div className="App">
+//                 {backButton}
+//                 {this.switchPages()}
+//             </div>
+//         );
+//     }
+// }
 
 export default App;
