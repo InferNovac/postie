@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { readStorage } from "../contact_server/ContactServer";
-
+import React from "react";
 /*
 
 const showcasePreview = !this.state.expand
@@ -44,13 +42,23 @@ const showcasePreview = !this.state.expand
 
 */
 
-const Image = ({ imageName }) =>
+const Image = ({ imageName, imageAlt }) =>
     readStorage(imageName)
-        .then((image) => <img src={image} alt="an image" />)
+        .then((image) => <img src={image} alt={imageAlt} />)
         .catch((error) => console.error(error));
 
-const ElementDisplay = ({ imageName }) => {
-    <Image imageName={imageName} />;
+const ElementDisplay = ({
+    projectDescription,
+    projectTitle,
+    imageName,
+    imageAlt,
+    userName,
+}) => {
+    <section>
+        <span>{userName}</span>
+        <h1>{projectTitle}</h1>
+        <Image imageName={imageName} imageAlt={imageAlt} />
+    </section>;
 };
 
 export default ElementDisplay;

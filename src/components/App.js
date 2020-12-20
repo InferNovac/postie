@@ -1,6 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import MainPage from "./structured_pages/MainPage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Nav from "./main_page_components/Nav";
+import Main from "./structured_pages/Main";
+import SignUp from "./structured_pages/SignUp";
+import Login from "./structured_pages/Login";
+import Upload from "./structured_pages/Upload";
+
 import "./css/style.css";
 
 /* 
@@ -40,16 +45,17 @@ const App = () => (
     <Router>
         <Switch>
             <Route exact path="/">
-                <MainPage />
+                <Nav />
+                <Main />
             </Route>
             <Route exact path="/sign-up">
-
+                <SignUp />
             </Route>
-            <Route exact path="/sign-in">
-
+            <Route exact path="/login">
+                <Login />
             </Route>
             <Route exact path="/upload">
-                
+                <Upload />
             </Route>
         </Switch>
     </Router>

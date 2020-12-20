@@ -1,9 +1,6 @@
 import React from "react";
-/* 
-  Simple LoadScreen using boostrap
-*/
 
-const RenderLoad = () => (
+const Loading = () => (
     <div className="load-screen full-height">
         <div className="d-flex full-height align-items-center justify-content-center">
             <div className="spinner-border text-primary">
@@ -13,4 +10,4 @@ const RenderLoad = () => (
     </div>
 );
 
-export default RenderLoad;
+export default Loading;

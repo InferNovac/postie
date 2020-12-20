@@ -1,90 +1,25 @@
 import React from "react";
-import { Component } from "react";
+import { NavLink } from "react-router-dom";
+import "./nav.css";
 
-export default class Nav extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            menu: false,
-        };
-        this.toggleBtn = this.toggleBtn.bind(this);
-    }
+const Nav = () => (
+    <nav className="navbar">
+        <NavLink
+            to="/"
+            title="CREATE-REACT-INVESTMENT"
+            className="navbar-brand"
+        >
+            CREATE-REACT-INVESTMENT
+        </NavLink>
+        <div className="navbar-items">
+            <NavLink to="/sign-up" title="Create Account">
+                Create Account
+            </NavLink>
+            <NavLink to="/login" title="Log In">
+                Log In
+            </NavLink>
+        </div>
+    </nav>
+);
 
-    toggleBtn() {
-        this.setState({ menu: !this.state.menu });
-    }
-
-    render() {
-        const show = this.state.menu ? "show" : "";
-        if (this.props.passThis.state.loggedIn === false) {
-            return (
-                <nav className="fixed-top nav-bar navbar navbar-expand-lg">
-                    <span className="navbar-brand">
-                        CREATE-REACT-INVESTMENT
-                    </span>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        onClick={this.toggleBtn}
-                    >
-                        <i className="material-icons">reorder</i>
-                    </button>
-                    <div className={"collapse navbar-collapse " + show}>
-                        <div className="navbar-nav">
-                            <span className="navbar-brand">
-                                Welcome,{" "}
-                                <i>{this.props.passThis.state.userName}</i>
-                            </span>
-                            <button
-                                className="btn btn-link nav-item"
-                                onClick={this.props.cClick}
-                            >
-                                CREATE ACCOUNT
-                            </button>
-                            <button
-                                className="btn btn-link nav-item"
-                                onClick={this.props.lClick}
-                            >
-                                LOGIN
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-            );
-        } else {
-            return (
-                <nav className="fixed-top nav-bar navbar navbar-expand-lg">
-                    <span className="navbar-brand">
-                        CREATE-REACT-INVESTMENT
-                    </span>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        onClick={this.toggleBtn}
-                    >
-                        <i className="material-icons">reorder</i>
-                    </button>
-                    <div className={"collapse navbar-collapse " + show}>
-                        <div className="navbar-nav">
-                            <span className="navbar-brand">
-                                Welcome, {this.props.passThis.state.userName}
-                            </span>
-                            <button
-                                className="btn btn-link nav-item"
-                                onClick={this.props.outClick}
-                            >
-                                LOG OUT
-                            </button>
-                            <button
-                                className="btn btn-link nav-item"
-                                onClick={this.props.aClick}
-                            >
-                                UPLOAD PROJECT
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-            );
-        }
-    }
-}
+export default Nav;
