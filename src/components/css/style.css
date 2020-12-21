@@ -14,20 +14,24 @@
     --bg-nav-color: #f1f2f6;
     --icon-hover: #485460;
     --text-color: #636e72;
+    --btn-color: #4b7bec;
     --bg-color: #f1f2f6;
     --success: #4cd137;
     --danger: #ea2027;
+    --active: #45aaf2;
     --icon: #1e272e;
     font-size: 16px;
 }
 
-* {
+*,
+::after,
+::before {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 body {
-    box-sizing: border-box;
     color: var(--text-color);
     background-color: var(--bg-color);
     font-family: "Roboto", sans-serif;
@@ -62,13 +66,8 @@ a {
 }
 
 .col {
-    flex-basis: 0;
     flex-grow: 1;
-    max-width: 100%;
-}
-
-.col-2 {
-    flex: 2;
-    flex-grow: 2;
-    max-width: 100%;
+    flex-basis: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }

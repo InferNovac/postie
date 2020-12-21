@@ -2,39 +2,45 @@ import React from "react";
 import "./interface.css";
 
 export const Input = ({
-    title,
-    name,
-    placeholder,
-    value,
-    handleChange,
     type,
+    name,
+    value,
+    title,
+    placeholder,
+    handleChange,
 }) => (
-    <div className="box">
-        <label> {title} </label>
+    <React.Fragment>
+        <label className="label"> {title} </label>
         <input
-            title={title}
             name={name}
-            placeholder={placeholder}
+            type={type}
+            title={title}
             value={value}
             onChange={handleChange}
-            type={type}
+            className="form-control"
+            placeholder={placeholder}
         />
-    </div>
+    </React.Fragment>
 );
 
 export const Select = ({
-    title,
     name,
+    title,
     value,
-    handleChange,
-    placeholder,
     options,
+    placeholder,
+    handleChange,
 }) => (
-    <div className="box">
-        <label> {title} </label>
-        <select name={name} value={value} onChange={handleChange}>
+    <React.Fragment>
+        <label className="label"> {title} </label>
+        <select
+            name={name}
+            value={value}
+            onChange={handleChange}
+            className="form-control"
+        >
             required
-            <option selected disabled>
+            <option defaultValue disabled>
                 {placeholder}
             </option>
             {options.map((field, index) => (
@@ -43,11 +49,17 @@ export const Select = ({
                 </option>
             ))}
         </select>
-    </div>
+    </React.Fragment>
 );
 
-export const Button = ({ isValid, type, title, handler, children }) => (
-    <button disabled={isValid} type={type} title={title} onClick={handler}>
+export const Button = ({ disabled, type, title, handler, children }) => (
+    <button
+        type={type}
+        title={title}
+        disabled={disabled}
+        onClick={handler}
+        className="button"
+    >
         {children}
     </button>
 );

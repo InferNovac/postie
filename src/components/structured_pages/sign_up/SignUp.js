@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Select, Button } from "../../profile_field/UserInterface";
 import "./signup.css";
 
-const SignUp = () => (
-    <div className="h-100 center-y">
-        <form className="sign-up">
+const FormFields = () => {
+    const [fields, setFields] = useState({
+        name: "",
+        email: "",
+        gender: "",
+        userName: "",
+        userType: "",
+        password: "",
+        rePassword: "",
+    });
+
+    const handleChannge = (event) =>
+        setFields({ ...fields, [event.target]: event.target.value });
+
+    return (
+        <React.Fragment>
             <div className="row">
                 <div className="col">
                     <Input
-                        title="Username"
-                        name="userName"
-                        placeholder="Enter Profile Name"
                         type="text"
+                        name="userName"
+                        title="Username"
+                        value={fields.userName}
+                        handleChange={handleChannge}
+                        placeholder="Enter Profile Name"
                     />
                 </div>
                 <div className="col">
@@ -42,7 +57,7 @@ const SignUp = () => (
                 </div>
             </div>
             <div className="row">
-                <div className="col-2">
+                <div className="col">
                     <Select
                         title="User Type"
                         name="userType"
@@ -69,9 +84,21 @@ const SignUp = () => (
                     />
                 </div>
             </div>
-            <Button type="sumbit" title="Sumbit">
-                Sumbit
-            </Button>
+            <div className="row">
+                <div className="col">
+                    <Button disabled={true} type="sumbit" title="Sumbit">
+                        Sumbit
+                    </Button>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+};
+
+const SignUp = () => (
+    <div className="h-100 center-y">
+        <form className="sign-up">
+            <FormFields />
         </form>
     </div>
 );
