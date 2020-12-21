@@ -152,11 +152,10 @@ export const getUserData = (userName) =>
                     resolve(false);
                 }
 
-                const { salt, password } = response.val();
-                resolve(password === passwordVerify(passwordToCheck, salt));
+                resolve(response.val());
             })
             .catch((error) => reject(error));
-    }); 
+    });
 
 export const getStorage = (imageName) =>
     new Promise((resolve, reject) => {
