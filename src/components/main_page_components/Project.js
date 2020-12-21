@@ -1,4 +1,5 @@
 import React from "react";
+import { checkStorage } from "../contact_server/ContactServer";
 /*
 
 const showcasePreview = !this.state.expand
@@ -43,22 +44,22 @@ const showcasePreview = !this.state.expand
 */
 
 const Image = ({ imageName, imageAlt }) =>
-    readStorage(imageName)
+    checkStorage(imageName)
         .then((image) => <img src={image} alt={imageAlt} />)
         .catch((error) => console.error(error));
 
-const ElementDisplay = ({
+const Project = ({
     projectDescription,
     projectTitle,
     imageName,
     imageAlt,
     userName,
-}) => {
+}) => (
     <section>
         <span>{userName}</span>
         <h1>{projectTitle}</h1>
-        <Image imageName={imageName} imageAlt={imageAlt} />
-    </section>;
-};
+        <p>{projectDescription}</p>
+    </section>
+);
 
-export default ElementDisplay;
+export default Project;
