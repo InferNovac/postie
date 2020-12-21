@@ -38,7 +38,7 @@ export const addUserData = (
             });
     });
 
-export const addToEmailList = (userName, email) =>
+export const setEmailList = (userName, email) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
@@ -52,7 +52,7 @@ export const addToEmailList = (userName, email) =>
             });
     });
 
-export const addPostData = (
+export const setPost = (
     post = {
         title: "DefaultTitle",
         body: "DefaultBody",
@@ -75,7 +75,7 @@ export const addPostData = (
             });
     });
 
-export const addToStorage = (image) =>
+export const setStorage = (image) =>
     new Promise((resolve, reject) => {
         firebase
             .storage()
@@ -92,7 +92,7 @@ export const addToStorage = (image) =>
             .catch((error) => reject(error));
     });
 
-export const checkUserName = (userName = "default") =>
+export const getUsername = (userName = "default") =>
     new Promise((resolve, reject) => {
         firebase
             .database()
@@ -108,7 +108,7 @@ export const checkUserName = (userName = "default") =>
             .catch((error) => reject(error));
     });
 
-export const checkUserEmail = (emailToCheck = "default@gg.com") =>
+export const getUserEmail = (emailToCheck = "default@gg.com") =>
     new Promise((resolve, reject) => {
         firebase
             .database()
@@ -126,34 +126,50 @@ export const checkUserEmail = (emailToCheck = "default@gg.com") =>
             .catch((error) => reject(error));
     });
 
-export const checkUserData = (userName, passwordToCheck) =>
+export const getUserCredentials = (userName, passwordToCheck) =>
     new Promise((resolve, reject) => {
         firebase.database
             .ref(`emails/${userName}}`)
             .once("value")
             .then((response) => {
-                const { salt, password } = response.val();
-
                 if (response.val() === null) {
                     resolve(false);
                 }
 
+                const { salt, password } = response.val();
                 resolve(password === passwordVerify(passwordToCheck, salt));
             })
             .catch((error) => reject(error));
     });
 
-export const checkStorage = (imageName) =>
+export const getUserData = (userName) =>
+    new Promise((resolve, reject) => {
+        firebase.database
+            .ref(`users/${userName}}`)
+            .once("value")
+            .then((response) => {
+                if (response.val() === null) {
+                    resolve(false);
+                }
+
+                const { salt, password } = response.val();
+                resolve(password === passwordVerify(passwordToCheck, salt));
+            })
+            .catch((error) => reject(error));
+    }); 
+
+export const getStorage = (imageName) =>
     new Promise((resolve, reject) => {
         firebase
             .storage()
             .ref()
             .child(imageName)
-            .getDownloadURL((response) => resolve(response))
+            .getDownloadURL()
+            .then((response) => resolve(response))
             .catch((error) => reject(error));
     });
 
-export const checkAllPosts = () =>
+export const getAllPosts = () =>
     new Promise((resolve, reject) => {
         firebase
             .database()

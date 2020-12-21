@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nav from "./main_page_components/Nav";
+import Nav from "./main_page_components/nav/Nav";
 import Main from "./structured_pages/Main";
 import SignUp from "./structured_pages/SignUp";
 import Login from "./structured_pages/Login";
@@ -55,6 +55,9 @@ const App = () => (
                 <Login />
             </Route>
             <Route exact path="/upload">
+                <Upload />
+            </Route>
+            <Route path="/:user">
                 <Upload />
             </Route>
         </Switch>

@@ -1,0 +1,38 @@
+.project {
+    box-shadow: 0px 0px 20px 0px rgba(190, 190, 190, 1);
+    background-color: var(--project-color);
+    justify-content: center;
+    padding: 2rem 0.5rem;
+    border-radius: 1rem;
+    margin: 2rem auto;
+    max-width: 640px;
+    display: flex;
+    width: 100%;
+}
+
+.project-link {
+    color: var(--text-color);
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.project > *,
+.project img {
+    max-width: 600px;
+    width: 100%;
+}
+
+.project main {
+    margin-top: 0.5rem;
+}
+
+.project h1 {
+    margin-bottom: 1rem;
+}
+
+.project img {
+    border-radius: 0.25rem;
+    border: 1px solid rgba(220, 221, 225, 1);
+}
