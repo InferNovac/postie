@@ -1,0 +1,16 @@
+.box label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.box input,
+.box select {
+    width: 100%;
+    font-size: 1rem;
+    border: transparent;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--project-color);
+    box-shadow: 0px 0px 20px 0px rgba(190, 190, 190, 1);
+}

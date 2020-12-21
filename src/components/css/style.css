@@ -37,11 +37,6 @@ a {
     text-decoration: none;
 }
 
-.post-space {
-    width: 100%;
-    max-width: 992px;
-}
-
 .content-space {
     width: 100%;
     max-width: 1140px;
@@ -50,4 +45,30 @@ a {
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
+}
+
+.h-100 {
+    height: 100vh;
+}
+
+.center-y {
+    display: flex;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.col-2 {
+    flex: 2;
+    flex-grow: 2;
+    max-width: 100%;
 }
