@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import { Input, Select, Button } from "../../profile_field/UserInterface";
+import React, { useState } from "react";
+import { Input, Select, Button } from "../../ui/UserInterface";
 import "./signup.css";
 
 const handleChange = (event, callback) => callback(event.target.value);
@@ -11,10 +11,10 @@ const UserName = () => {
             <Input
                 type="text"
                 name="userName"
-                title="Username"
+                label="Username"
                 value={userName}
-                handleChange={(event) => handleChange(event, setUserName)}
                 placeholder="Enter Profile Name"
+                handleChange={(event) => handleChange(event, setUserName)}
             />
         </div>
     );
@@ -25,10 +25,10 @@ const Name = () => {
     return (
         <div className="col">
             <Input
-                title="Name"
                 name="name"
                 type="text"
                 value={name}
+                label="Name"
                 placeholder="Enter Name"
                 handleChange={(event) => handleChange(event, setName)}
             />
@@ -38,13 +38,12 @@ const Name = () => {
 
 const Email = () => {
     const [email, setEmail] = useState("");
-
     return (
         <div className="col">
             <Input
                 type="text"
                 name="email"
-                title="Email"
+                label="Email"
                 value={email}
                 placeholder="Enter E-mail"
                 handleChange={(event) => handleChange(event, setEmail)}
@@ -60,7 +59,7 @@ const Gender = () => {
             <Select
                 name="gender"
                 value={gender}
-                title="Gender"
+                label="Gender"
                 placeholder="Select Gender"
                 options={["Male", "Female"]}
                 handleChange={(event) => handleChange(event, setGender)}
@@ -76,7 +75,7 @@ const UserType = () => {
             <Select
                 name="userType"
                 value={userType}
-                title="User Type"
+                label="User Type"
                 placeholder="Select User Type"
                 options={["Student", "Investor"]}
                 handleChange={(event) => handleChange(event, setUserType)}
@@ -93,7 +92,7 @@ const Password = () => {
                 value={password}
                 type="password"
                 name="password"
-                title="Password"
+                label="Password"
                 placeholder="Enter password"
                 handleChange={(event) => handleChange(event, setPassword)}
             />
@@ -109,16 +108,36 @@ const RePassword = () => {
                 type="password"
                 name="rePassword"
                 value={rePassword}
-                title="Re-enter Password"
-                handleChange={(event) => handleChange(event, setRePassword)}
+                label="Re-enter Password"
                 placeholder="Re-enter Password"
+                handleChange={(event) => handleChange(event, setRePassword)}
             />
         </div>
     );
 };
 
-const FormFields = () => (
-    <form className="sign-up">
+const Sumbit = () => (
+    <div className="col">
+        <Button disabled={false} type="sumbit" title="Sumbit">
+            Sumbit
+        </Button>
+    </div>
+);
+
+const SignUpForm = () => (
+    <form
+        method="POST"
+        className="sign-up"
+        onSubmit={(event) => {
+            event.preventDefault();
+            const userData = {};
+            for (const element of event.target) {
+                if (element.value.length > 0) {
+                    userData[element.name] = element.value;
+                }
+            }
+        }}
+    >
         <div className="row">
             <UserName />
             <Name />
@@ -135,18 +154,14 @@ const FormFields = () => (
             <RePassword />
         </div>
         <div className="row">
-            <div className="col">
-                <Button disabled={true} type="sumbit" title="Sumbit">
-                    Sumbit
-                </Button>
-            </div>
+            <Sumbit />
         </div>
     </form>
 );
 
 const SignUp = () => (
     <div className="h-100 center-y">
-        <FormFields />
+        <SignUpForm />
     </div>
 );
 

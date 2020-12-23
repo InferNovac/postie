@@ -1,45 +1,68 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./interface.css";
 
 export const Input = ({
     type,
     name,
+    hint,
     value,
-    title,
+    label,
     placeholder,
     handleChange,
 }) => (
-    <React.Fragment>
-        <label className="label"> {title} </label>
+    <Fragment>
+        <label className="label"> {label} </label>
         <input
             name={name}
             type={type}
-            title={title}
+            title={label}
             value={value}
             onChange={handleChange}
             className="form-control"
             placeholder={placeholder}
         />
-    </React.Fragment>
+        {hint}
+    </Fragment>
+);
+
+export const TextArea = ({
+    label,
+    name,
+    rows,
+    columns,
+    placeholder,
+    handleChange,
+}) => (
+    <Fragment>
+        <label>{label}</label>
+        <textarea
+            name={name}
+            rows={rows}
+            cols={columns}
+            onChange={handleChange}
+            className="form-control"
+            placeholder={placeholder}
+        />
+    </Fragment>
 );
 
 export const Select = ({
     name,
-    title,
+    label,
     value,
     options,
     placeholder,
     handleChange,
 }) => (
-    <React.Fragment>
-        <label className="label"> {title} </label>
+    <Fragment>
+        <label className="label">{label}</label>
         <select
             name={name}
             value={value}
+            title={label}
             onChange={handleChange}
             className="form-control"
         >
-            required
             <option defaultValue disabled>
                 {placeholder}
             </option>
@@ -49,16 +72,16 @@ export const Select = ({
                 </option>
             ))}
         </select>
-    </React.Fragment>
+    </Fragment>
 );
 
 export const Button = ({ disabled, type, title, handler, children }) => (
     <button
         type={type}
         title={title}
-        disabled={disabled}
         onClick={handler}
         className="button"
+        disabled={disabled}
     >
         {children}
     </button>

@@ -24,7 +24,7 @@ const App = () => (
                 <Upload />
             </Route>
             <Route path="/:user">
-                <Upload />
+                <div>Dummy page for user</div>
             </Route>
         </Switch>
     </Router>
