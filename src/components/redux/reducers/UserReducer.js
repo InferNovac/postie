@@ -1,19 +1,29 @@
-import { LOGIN_USER, UPLOAD } from "../actions/Types";
+import { SIGN_UP, LOGIN, UPLOAD } from "../actions/Types";
 
 const initalState = {
-    user: {},
+    signUp: {},
+    login: {},
     upload: {},
 };
 
 export default (state = initalState, action) => {
     switch (action.type) {
+        case SIGN_UP:
+            return {
+                ...state,
+                signUp: { ...state.signUp, ...action.payload },
+            };
         case LOGIN_USER:
             return {
                 ...state,
-                user: { ...action.payload },
+                login: { ...state.login, ...action.payload },
             };
         case UPLOAD:
-            return {};
+            return {
+                ...state,
+                upload: { ...state.upload, ...action.payload },
+            };
+
         default:
             return state;
     }

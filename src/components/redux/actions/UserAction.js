@@ -1,12 +1,19 @@
-import { LOGIN_USER, UPLOAD } from "./Types";
+import { SIGN_UP, LOGIN, UPLOAD } from "./Types";
 
-export const loginUser = (userData) => (dispatch) => {
+export const signUp = (userData) => (dispatch) => {
     dispatch({
-        type: LOGIN_USER,
+        type: SIGN_UP,
         payload: userData,
     });
 };
 
-export const uploadForm = (userData) => (dispatch) => {
+export const login = (userData) => (dispatch) => {
+    dispatch({
+        type: LOGIN,
+        payload: userData,
+    });
+};
+
+export const upload = (userData) => (dispatch) => {
     dispatch({ type: UPLOAD, payload: userData });
 };
