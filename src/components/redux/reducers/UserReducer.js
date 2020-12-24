@@ -1,7 +1,8 @@
-import { LOGIN_USER } from "../actions/Types";
+import { LOGIN_USER, UPLOAD } from "../actions/Types";
 
 const initalState = {
-    userData: {},
+    user: {},
+    upload: {},
 };
 
 export default (state = initalState, action) => {
@@ -9,8 +10,10 @@ export default (state = initalState, action) => {
         case LOGIN_USER:
             return {
                 ...state,
-                userData: { ...action.payload },
+                user: { ...action.payload },
             };
+        case UPLOAD:
+            return {};
         default:
             return state;
     }

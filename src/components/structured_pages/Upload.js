@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Input, Button, TextArea } from "../ui/UserInterface";
 
 const handleChange = (event, callback) => callback(event.target.value);
+const handleUpload = (event, callback) => {
+    console.log(event.target.files[0]);
+};
+const handleOnSubmit = (event) => {
+    event.preventDefault();
+};
 
 const Title = () => {
     const [title, setTitle] = useState("");
@@ -10,7 +16,7 @@ const Title = () => {
             <Input
                 type="text"
                 name="title"
-                title="Title"
+                label="Title"
                 value={title}
                 placeholder="Enter Your Title"
                 handleChange={(event) => handleChange(event, setTitle)}
@@ -20,13 +26,13 @@ const Title = () => {
 };
 
 const UploadFile = () => {
-    const [file, setFile] = useState("");
     return (
         <div className="col">
             <Input
                 type="file"
-                value={file}
-                handleChange={(event) => handleChange(event, setFile)}
+                label="Upload"
+                id="file-upload"
+                handleChange={handleUpload}
             />
         </div>
     );
@@ -41,7 +47,7 @@ const Description = () => {
                 columns="30"
                 type="textarea"
                 name="description"
-                title="Description"
+                label="Description"
                 value={description}
                 placeholder="Enter Your Description"
                 handleChange={(event) => handleChange(event, setDescription)}
@@ -59,7 +65,7 @@ const Sumbit = () => (
 );
 
 const UploadForm = () => (
-    <form className="sign-up">
+    <form onSubmit={handleOnSubmit} className="sign-up">
         <div className="row">
             <Title />
         </div>

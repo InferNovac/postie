@@ -12,11 +12,10 @@ const Image = ({ imageName }) => {
             setLoading(<img src={image} alt={imageName} />)
         );
     }, []);
-
     return loading;
 };
 
-const Project = ({ userName, title, body, imageName }) => (
+const Project = ({ userName, title, imageName }) => (
     <section className="project">
         <div>
             <header>

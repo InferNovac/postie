@@ -13,7 +13,7 @@ const Nav = () => (
         </NavLink>
         <div className="navbar-items">
             <NavLink to="/sign-up" title="Create Account">
-                Create Account
+                Sign Up
             </NavLink>
             <NavLink to="/login" title="Log In">
                 Log In

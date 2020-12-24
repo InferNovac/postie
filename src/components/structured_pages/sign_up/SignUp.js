@@ -1,8 +1,39 @@
 import React, { useState } from "react";
+import { passwordHash } from "../../auxilary_functions/Hash";
 import { Input, Select, Button } from "../../ui/UserInterface";
+import {
+    setUserData,
+    setEmailList,
+    setPasswordList,
+} from "../../contact_server/ContactServer";
 import "./signup.css";
 
 const handleChange = (event, callback) => callback(event.target.value);
+const handleOnSubmit = (event) => {
+    event.preventDefault();
+    const { elements } = event.target;
+    const userData = {};
+    for (const element of elements) {
+        const { name, value } = element;
+        if (value.length > 0) {
+            userData[name] = value;
+        }
+    }
+
+    const [hash, salt] = passwordHash(userData.password);
+    const { userName, email } = userData;
+    const updatedUserData = {
+        ...userData,
+        password: hash,
+        salt: salt,
+    };
+
+    Promise.all([
+        setUserData(updatedUserData),
+        setEmailList(userName, email),
+        setPasswordList(userName, hash, salt),
+    ]);
+};
 
 const UserName = () => {
     const [userName, setUserName] = useState("");
@@ -124,20 +155,16 @@ const Sumbit = () => (
     </div>
 );
 
+const Form = ({ children }) => {
+    return (
+        <form method="POST" onSubmit={handleOnSubmit} className="sign-up">
+            {children}
+        </form>
+    );
+};
+
 const SignUpForm = () => (
-    <form
-        method="POST"
-        className="sign-up"
-        onSubmit={(event) => {
-            event.preventDefault();
-            const userData = {};
-            for (const element of event.target) {
-                if (element.value.length > 0) {
-                    userData[element.name] = element.value;
-                }
-            }
-        }}
-    >
+    <Form>
         <div className="row">
             <UserName />
             <Name />
@@ -156,7 +183,7 @@ const SignUpForm = () => (
         <div className="row">
             <Sumbit />
         </div>
-    </form>
+    </Form>
 );
 
 const SignUp = () => (

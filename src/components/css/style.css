@@ -71,3 +71,20 @@ a {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.loading {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    pointer-events: none;
+    border: 0.4em solid transparent;
+    border-color: var(--project-color);
+    border-top-color: var(--btn-color);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

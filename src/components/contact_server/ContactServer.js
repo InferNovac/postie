@@ -15,21 +15,19 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const addUserData = (
+export const setUserData = ({
+    salt,
+    email,
+    gender,
+    password,
+    userType,
     userName,
-    newUser = {
-        email: "Default@gg.com",
-        gender: "Default",
-        password: "Default",
-        salt: "DefaultSalt",
-        userType: "Default",
-    }
-) =>
+}) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
             .ref(`users/${userName}`)
-            .set(newUser, (error) => {
+            .set({ userType, password, gender, email, salt }, (error) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -44,6 +42,20 @@ export const setEmailList = (userName, email) =>
             .database()
             .ref(`emails/${userName}`)
             .set(email, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+    });
+
+export const setPasswordList = (userName, password, salt) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`passwords/${userName}`)
+            .set({ password, salt }, (error) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -128,15 +140,16 @@ export const getUserEmail = (emailToCheck = "default@gg.com") =>
 
 export const getUserCredentials = (userName, passwordToCheck) =>
     new Promise((resolve, reject) => {
-        firebase.database
-            .ref(`emails/${userName}}`)
+        firebase
+            .database()
+            .ref(`passwords/${userName}`)
             .once("value")
             .then((response) => {
                 if (response.val() === null) {
                     resolve(false);
                 }
 
-                const { salt, password } = response.val();
+                const { password, salt } = response.val();
                 resolve(password === passwordVerify(passwordToCheck, salt));
             })
             .catch((error) => reject(error));

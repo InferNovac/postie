@@ -26,15 +26,15 @@ export const Input = ({
 );
 
 export const TextArea = ({
-    label,
     name,
     rows,
+    label,
     columns,
     placeholder,
     handleChange,
 }) => (
     <Fragment>
-        <label>{label}</label>
+        <label className="label">{label}</label>
         <textarea
             name={name}
             rows={rows}
