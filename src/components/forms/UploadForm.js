@@ -65,7 +65,7 @@ const Sumbit = () => (
 );
 
 const UploadForm = () => (
-    <form onSubmit={handleOnSubmit} className="sign-up">
+    <form onSubmit={handleOnSubmit} className="form">
         <div className="row">
             <Title />
         </div>
@@ -80,3 +80,5 @@ const UploadForm = () => (
         </div>
     </form>
 );
+
+export default UploadForm;

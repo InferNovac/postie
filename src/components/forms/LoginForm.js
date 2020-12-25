@@ -67,7 +67,7 @@ const Sumbit = () => (
 
 const Form = ({ children }) => {
     return (
-        <form method="POST" onSubmit={handleOnSubmit} className="sign-up">
+        <form method="POST" onSubmit={handleOnSubmit} className="form">
             {children}
         </form>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import "./signup.css";
+import SignUpForm from "../forms/SignUpForm";
 
 const SignUp = () => (
     <div className="h-100 center-y">

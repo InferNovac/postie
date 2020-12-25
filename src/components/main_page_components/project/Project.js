@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Loading from "../../structured_pages/Loading";
+import Loading from "../../auxilary_functions/Loading";
 import { fetchData } from "../../auxilary_functions/Constant";
 import { getStorage } from "../../contact_server/ContactServer";
 import "./project.css";

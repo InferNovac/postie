@@ -1,8 +1,8 @@
 import { SIGN_UP, LOGIN, UPLOAD } from "../actions/Types";
 
 const initalState = {
-    signUp: {},
     login: {},
+    signUp: {},
     upload: {},
 };
 
@@ -13,7 +13,7 @@ export default (state = initalState, action) => {
                 ...state,
                 signUp: { ...state.signUp, ...action.payload },
             };
-        case LOGIN_USER:
+        case LOGIN:
             return {
                 ...state,
                 login: { ...state.login, ...action.payload },

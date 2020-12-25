@@ -1,8 +1,8 @@
 import React from "react";
-import Project from "./project/Project";
-import Loading from "../structured_pages/Loading";
-import { fetchData } from "../auxilary_functions/Constant";
-import { getAllPosts } from "../contact_server/ContactServer";
+import Project from "../project/Project";
+import Loading from "../../auxilary_functions/Loading";
+import { fetchData } from "../../auxilary_functions/Constant";
+import { getAllPosts } from "../../contact_server/ContactServer";
 
 const Projects = () => {
     const [projects, setProjects] = React.useState(

@@ -1,37 +1,16 @@
 import React, { useState } from "react";
-import { passwordHash } from "../../auxilary_functions/Hash";
-import { Input, Select, Button } from "../../ui/UserInterface";
+import { passwordHash } from "../auxilary_functions/Hash";
+import { Input, Select, Button } from "../ui/UserInterface";
 import {
     setUserData,
     setEmailList,
     setPasswordList,
-} from "../../contact_server/ContactServer";
+} from "../contact_server/ContactServer";
 
 const handleChange = (event, callback) => callback(event.target.value);
 const handleOnSubmit = (event) => {
     event.preventDefault();
-    const { elements } = event.target;
-    const userData = {};
-    for (const element of elements) {
-        const { name, value } = element;
-        if (value.length > 0) {
-            userData[name] = value;
-        }
-    }
-
-    const [hash, salt] = passwordHash(userData.password);
-    const { userName, email } = userData;
-    const updatedUserData = {
-        ...userData,
-        password: hash,
-        salt: salt,
-    };
-
-    Promise.all([
-        setUserData(updatedUserData),
-        setEmailList(userName, email),
-        setPasswordList(userName, hash, salt),
-    ]);
+    console.log(event.target);
 };
 
 const UserName = () => {
@@ -155,7 +134,7 @@ const Sumbit = () => (
 );
 
 const Form = ({ children }) => (
-    <form method="POST" onSubmit={handleOnSubmit} className="sign-up">
+    <form method="POST" onSubmit={handleOnSubmit} className="form">
         {children}
     </form>
 );
