@@ -1,16 +1,25 @@
 import React, { useState } from "react";
-import { passwordHash } from "../auxilary_functions/Hash";
 import { Input, Select, Button } from "../ui/UserInterface";
 import {
     setUserData,
     setEmailList,
     setPasswordList,
 } from "../contact_server/ContactServer";
+import {
+    collect,
+    hashAndPack,
+    handleChange,
+} from "../auxilary_functions/Constant";
 
-const handleChange = (event, callback) => callback(event.target.value);
 const handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const user = hashAndPack(collect(event.target.elements));
+    const { userName, email, password, salt } = user;
+    Promise.all([
+        setUserData(user),
+        setEmailList(userName, email),
+        setPasswordList(userName, password, salt),
+    ]);
 };
 
 const UserName = () => {

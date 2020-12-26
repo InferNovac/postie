@@ -1,20 +1,12 @@
 import React, { useState } from "react";
 import { Input, Button } from "../ui/UserInterface";
+import { handleChange, collect } from "../auxilary_functions/Constant";
 import { getUserCredentials } from "../contact_server/ContactServer";
 
-const handleChange = (event, callback) => callback(event.target.value);
 const handleOnSubmit = (event) => {
     event.preventDefault();
-    const { elements } = event.target;
-    const userData = {};
-    for (const element of elements) {
-        const { name, value } = element;
-        if (value.length > 0) {
-            userData[name] = value;
-        }
-    }
-
-    getUserCredentials(userData.userName, userData.password)
+    const { userName, password } = collect(event.target.elements);
+    getUserCredentials(userName, password)
         .then((response) => console.log(response))
         .catch((error) => console.error(error));
 };
