@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button } from "../ui/UserInterface";
-import { handleChange, collect } from "../auxilary_functions/Constant";
-import { getUserCredentials } from "../contact_server/ContactServer";
+import { handleChange, collect } from "../auxilary/Constant";
+import { getUserCredentials } from "../server/ContactServer";
 
 const handleOnSubmit = (event) => {
     event.preventDefault();
@@ -57,13 +57,11 @@ const Sumbit = () => (
     </div>
 );
 
-const Form = ({ children }) => {
-    return (
-        <form method="POST" onSubmit={handleOnSubmit} className="form">
-            {children}
-        </form>
-    );
-};
+const Form = ({ children }) => (
+    <form method="POST" onSubmit={handleOnSubmit} className="form">
+        {children}
+    </form>
+);
 
 const LoginForm = () => (
     <Form>

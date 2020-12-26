@@ -2,21 +2,25 @@ import React, { Fragment } from "react";
 import "./interface.css";
 
 export const Input = ({
+    ref,
     type,
     name,
     hint,
     value,
     label,
+    accept,
     placeholder,
     handleChange,
 }) => (
     <Fragment>
         <label className="label"> {label} </label>
         <input
+            ref={ref}
             name={name}
             type={type}
             title={label}
             value={value}
+            accept={accept}
             onChange={handleChange}
             className="form-control"
             placeholder={placeholder}

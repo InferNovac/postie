@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Input, Button, TextArea } from "../ui/UserInterface";
+import { setPost, setStorage } from "../server/ContactServer";
+import { handleChange, collect } from "../auxilary/Constant";
 
-const handleChange = (event, callback) => callback(event.target.value);
-const handleUpload = (event, callback) => {
-    console.log(event.target.files[0]);
+const handleImage = (event, callback) => {
+    callback(event.target.files[0]);
 };
-const handleOnSubmit = (event) => {
+
+const handleOnSubmit = (event, image) => {
     event.preventDefault();
+    const post = collect(event.target.elements);
+    Promise.all([
+        setPost({ ...post, userName: "Test", imageName: image.name }),
+        setStorage(image),
+    ]);
 };
 
 const Title = () => {
@@ -25,18 +32,15 @@ const Title = () => {
     );
 };
 
-const UploadFile = () => {
-    return (
-        <div className="col">
-            <Input
-                type="file"
-                label="Upload"
-                id="file-upload"
-                handleChange={handleUpload}
-            />
-        </div>
-    );
-};
+const UploadFile = ({ setImage }) => (
+    <div className="col">
+        <Input
+            type="file"
+            label="Upload"
+            handleChange={(event) => handleImage(event, setImage)}
+        />
+    </div>
+);
 
 const Description = () => {
     const [description, setDescription] = useState("");
@@ -64,21 +68,27 @@ const Sumbit = () => (
     </div>
 );
 
-const UploadForm = () => (
-    <form onSubmit={handleOnSubmit} className="form">
-        <div className="row">
-            <Title />
-        </div>
-        <div className="row">
-            <UploadFile />
-        </div>
-        <div className="row">
-            <Description />
-        </div>
-        <div className="row">
-            <Sumbit />
-        </div>
-    </form>
-);
+const UploadForm = () => {
+    const [image, setImage] = useState("");
+    return (
+        <form
+            onSubmit={(event) => handleOnSubmit(event, image)}
+            className="form"
+        >
+            <div className="row">
+                <Title />
+            </div>
+            <div className="row">
+                <UploadFile setImage={setImage} />
+            </div>
+            <div className="row">
+                <Description />
+            </div>
+            <div className="row">
+                <Sumbit />
+            </div>
+        </form>
+    );
+};
 
 export default UploadForm;

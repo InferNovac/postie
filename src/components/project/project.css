@@ -1,13 +1,13 @@
 .project {
-    box-shadow: 0px 0px 20px 0px rgba(190, 190, 190, 1);
-    background-color: var(--project-color);
-    justify-content: center;
-    padding: 2rem 0.5rem;
-    border-radius: 1rem;
-    margin: 2rem auto;
-    max-width: 640px;
-    display: flex;
     width: 100%;
+    display: flex;
+    max-width: 640px;
+    margin: 2rem auto;
+    border-radius: 1rem;
+    padding: 2rem 0.5rem;
+    justify-content: center;
+    background-color: var(--project-color);
+    box-shadow: 0px 0px 20px 0px rgba(190, 190, 190, 1);
 }
 
 .project-link {
@@ -20,8 +20,8 @@
 
 .project > *,
 .project img {
-    max-width: 600px;
     width: 100%;
+    max-width: 600px;
 }
 
 .project main {

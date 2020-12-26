@@ -1,21 +1,21 @@
 import { passwordHash } from "./Hash";
 
+export const handleChange = (event, callback) => callback(event.target.value);
+
 export const fetchData = (toResolve, callback) =>
     toResolve
         .then((data) => callback(data))
         .catch((error) => console.error(error));
 
-export const handleChange = (event, callback) => callback(event.target.value);
-
 export const collect = (elements) => {
-    const user = {};
+    const pack = {};
     for (const element of elements) {
         const { name, value } = element;
-        if (value.length > 0) {
-            user[name] = value;
+        if (name.length > 0 && value.length > 0) {
+            pack[name] = value;
         }
     }
-    return { ...user };
+    return { ...pack };
 };
 
 export const hashAndPack = (user) => {

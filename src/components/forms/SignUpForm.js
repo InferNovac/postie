@@ -4,12 +4,8 @@ import {
     setUserData,
     setEmailList,
     setPasswordList,
-} from "../contact_server/ContactServer";
-import {
-    collect,
-    hashAndPack,
-    handleChange,
-} from "../auxilary_functions/Constant";
+} from "../server/ContactServer";
+import { collect, hashAndPack, handleChange } from "../auxilary/Constant";
 
 const handleOnSubmit = (event) => {
     event.preventDefault();
@@ -78,8 +74,8 @@ const Gender = () => {
                 name="gender"
                 value={gender}
                 label="Gender"
-                placeholder="Select Gender"
                 options={["Male", "Female"]}
+                placeholder="Select Gender"
                 handleChange={(event) => handleChange(event, setGender)}
             />
         </div>

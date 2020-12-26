@@ -6,7 +6,7 @@ const initalState = {
     upload: {},
 };
 
-export default (state = initalState, action) => {
+const UserReducer = (state = initalState, action) => {
     switch (action.type) {
         case SIGN_UP:
             return {
@@ -28,3 +28,5 @@ export default (state = initalState, action) => {
             return state;
     }
 };
+
+export default UserReducer;

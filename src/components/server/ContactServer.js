@@ -1,7 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
 import "firebase/storage";
-import { passwordVerify } from "../auxilary_functions/Hash";
+import { passwordVerify } from "../auxilary/Hash";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBdpf_wxtSI1tFtQCNNST1q-OXlfF6K0kU",
@@ -64,21 +64,13 @@ export const setPasswordList = (userName, password, salt) =>
             });
     });
 
-export const setPost = (
-    post = {
-        title: "DefaultTitle",
-        body: "DefaultBody",
-        userName: "Default",
-        imageName: "DefaultImage",
-    }
-) =>
+export const setPost = ({ description, title, userName, imageName }) =>
     new Promise((resolve, reject) => {
         const keyPost = firebase.database().ref().child("posts").push().key;
-
         firebase
             .database()
             .ref(`posts/${keyPost}`)
-            .set(post, (error) => {
+            .set({ description, title, userName, imageName }, (error) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -104,7 +96,7 @@ export const setStorage = (image) =>
             .catch((error) => reject(error));
     });
 
-export const getUsername = (userName = "default") =>
+export const getUsername = (userName) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
@@ -120,7 +112,7 @@ export const getUsername = (userName = "default") =>
             .catch((error) => reject(error));
     });
 
-export const getUserEmail = (emailToCheck = "default@gg.com") =>
+export const getUserEmail = (emailToCheck) =>
     new Promise((resolve, reject) => {
         firebase
             .database()

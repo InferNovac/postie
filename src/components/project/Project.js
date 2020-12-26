@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Loading from "../../auxilary_functions/Loading";
-import { fetchData } from "../../auxilary_functions/Constant";
-import { getStorage } from "../../contact_server/ContactServer";
+import Loading from "../auxilary/Loading";
+import { fetchData } from "../auxilary/Constant";
+import { getStorage } from "../server/ContactServer";
 import "./project.css";
 
 const Image = ({ imageName }) => {

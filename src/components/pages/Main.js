@@ -1,5 +1,5 @@
 import React from "react";
-import Projects from "../main_page_components/projects/Projects";
+import Projects from "../projects/Projects";
 
 const Main = () => (
     <div className="content-space mx-auto">
