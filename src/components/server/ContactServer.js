@@ -15,12 +15,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const setUserData = ({ salt, gender, password, userType, userName }) =>
+export const setUserData = ({ gender, userType, userName }) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
             .ref(`users/${userName}`)
-            .set({ userType, password, gender, salt }, (error) => {
+            .set({ gender, userType }, (error) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -45,11 +45,33 @@ export const setPasswordList = (userName, password, salt) =>
 
 export const setPost = ({ description, title, userName, imageName }) =>
     new Promise((resolve, reject) => {
-        const keyPost = firebase.database().ref().child("posts").push().key;
+        const key = firebase.database().ref().child("posts").push().key;
+        const updates = {};
+        const post = {
+            title: title,
+            imageName: imageName,
+            description: description,
+        };
+        updates[`/posts/${key}`] = { ...post, userName: userName };
+        updates[`/users/${userName}/posts/${key}`] = post;
         firebase
             .database()
-            .ref(`posts/${keyPost}`)
-            .set({ description, title, userName, imageName }, (error) => {
+            .ref()
+            .update(updates, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+    });
+
+export const setUser = ({ userName }) =>
+    new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(`userNames/${userName}`)
+            .set({}, (error) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -79,7 +101,7 @@ export const getUsername = (userName) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
-            .ref(`emails/${userName}`)
+            .ref(`userNames/${userName}`)
             .once("value")
             .then((response) => {
                 if (response.val() !== null) {
@@ -87,24 +109,6 @@ export const getUsername = (userName) =>
                 } else {
                     resolve(false);
                 }
-            })
-            .catch((error) => reject(error));
-    });
-
-export const getUserEmail = (emailToCheck) =>
-    new Promise((resolve, reject) => {
-        firebase
-            .database()
-            .ref(`emails/`)
-            .once("value")
-            .then((response) => {
-                const users = Object.values(response.val());
-                for (const email of users) {
-                    if (email === emailToCheck) {
-                        resolve(true);
-                    }
-                }
-                resolve(false);
             })
             .catch((error) => reject(error));
     });

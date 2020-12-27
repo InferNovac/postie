@@ -10,8 +10,13 @@ const handleImage = (event, callback) => {
 const handleOnSubmit = (event, image) => {
     event.preventDefault();
     const post = collect(event.target.elements);
+    const userName = "Test";
     Promise.all([
-        setPost({ ...post, userName: "Test", imageName: image.name }),
+        setPost({
+            ...post,
+            userName: userName,
+            imageName: image.name,
+        }),
         setStorage(image),
     ]);
 };

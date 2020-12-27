@@ -7,6 +7,7 @@ import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Upload from "./pages/Upload";
+import Profile from "./pages/Profile";
 import "./css/style.css";
 
 const App = () => (
@@ -27,7 +28,7 @@ const App = () => (
                     <Upload />
                 </Route>
                 <Route path="/:user">
-                    <div>Dummy page for user</div>
+                    <Profile />
                 </Route>
             </Switch>
         </Router>

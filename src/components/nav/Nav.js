@@ -12,7 +12,7 @@ const Nav = () => (
             CREATE-REACT-INVESTMENT
         </NavLink>
         <div className="navbar-items">
-            <NavLink to="/sign-up" title="Create Account">
+            <NavLink to="/sign-up" title="Sign Up">
                 Sign Up
             </NavLink>
             <NavLink to="/login" title="Log In">
