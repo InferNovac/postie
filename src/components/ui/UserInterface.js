@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
+import Validate from "../forms/Validate";
 import "./interface.css";
 
 export const Input = ({
     ref,
     type,
     name,
-    hint,
     value,
     label,
     accept,
@@ -25,7 +25,7 @@ export const Input = ({
             className="form-control"
             placeholder={placeholder}
         />
-        {hint}
+        <Validate type={name} value={value} />
     </Fragment>
 );
 
@@ -67,7 +67,7 @@ export const Select = ({
             onChange={handleChange}
             className="form-control"
         >
-            <option defaultValue disabled>
+            <option defaultValue={placeholder} disabled>
                 {placeholder}
             </option>
             {options.map((field, index) => (

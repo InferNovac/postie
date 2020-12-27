@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { Input, Select, Button } from "../ui/UserInterface";
-import {
-    setUserData,
-    setEmailList,
-    setPasswordList,
-} from "../server/ContactServer";
+import { setUserData, setPasswordList } from "../server/ContactServer";
 import { collect, hashAndPack, handleChange } from "../auxilary/Constant";
+import Validate from "./Validate";
 
 const handleOnSubmit = (event) => {
     event.preventDefault();
     const user = hashAndPack(collect(event.target.elements));
-    const { userName, email, password, salt } = user;
-    Promise.all([
-        setUserData(user),
-        setEmailList(userName, email),
-        setPasswordList(userName, password, salt),
-    ]);
+    const { userName, password, salt } = user;
+    console.log(user);
 };
 
 const UserName = () => {
@@ -45,22 +38,6 @@ const Name = () => {
                 label="Name"
                 placeholder="Enter Name"
                 handleChange={(event) => handleChange(event, setName)}
-            />
-        </div>
-    );
-};
-
-const Email = () => {
-    const [email, setEmail] = useState("");
-    return (
-        <div className="col">
-            <Input
-                type="text"
-                name="email"
-                label="Email"
-                value={email}
-                placeholder="Enter E-mail"
-                handleChange={(event) => handleChange(event, setEmail)}
             />
         </div>
     );
@@ -138,20 +115,13 @@ const Sumbit = () => (
     </div>
 );
 
-const Form = ({ children }) => (
-    <form method="POST" onSubmit={handleOnSubmit} className="form">
-        {children}
-    </form>
-);
-
 const SignUpForm = () => (
-    <Form>
+    <form method="POST" onSubmit={handleOnSubmit} className="form">
         <div className="row">
             <UserName />
             <Name />
         </div>
         <div className="row">
-            <Email />
             <Gender />
         </div>
         <div className="row">
@@ -164,7 +134,7 @@ const SignUpForm = () => (
         <div className="row">
             <Sumbit />
         </div>
-    </Form>
+    </form>
 );
 
 export default SignUpForm;

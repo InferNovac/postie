@@ -84,6 +84,11 @@ a {
     margin-bottom: 1rem;
 }
 
+.loading-wrap {
+    width: 100%;
+    max-width: 600px;
+}
+
 .loading {
     width: 2.5em;
     height: 2.5em;

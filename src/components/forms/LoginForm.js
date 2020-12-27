@@ -57,18 +57,12 @@ const Sumbit = () => (
     </div>
 );
 
-const Form = ({ children }) => (
-    <form method="POST" onSubmit={handleOnSubmit} className="form">
-        {children}
-    </form>
-);
-
 const LoginForm = () => (
-    <Form>
+    <form method="POST" onSubmit={handleOnSubmit} className="form">
         <UserName />
         <Password />
         <Sumbit />
-    </Form>
+    </form>
 );
 
 export default LoginForm;

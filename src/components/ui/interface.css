@@ -1,5 +1,5 @@
 .label {
-    display: inline-block;
+    display: block;
     margin-bottom: 0.5rem;
 }
 
@@ -21,6 +21,10 @@
 .form-control:focus {
     outline: 0;
     border: 1px solid var(--btn-color);
+}
+
+.error {
+    padding: 0.375rem 0.75rem;
 }
 
 .button {

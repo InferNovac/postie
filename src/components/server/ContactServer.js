@@ -15,33 +15,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const setUserData = ({
-    salt,
-    email,
-    gender,
-    password,
-    userType,
-    userName,
-}) =>
+export const setUserData = ({ salt, gender, password, userType, userName }) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
             .ref(`users/${userName}`)
-            .set({ userType, password, gender, email, salt }, (error) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(true);
-                }
-            });
-    });
-
-export const setEmailList = (userName, email) =>
-    new Promise((resolve, reject) => {
-        firebase
-            .database()
-            .ref(`emails/${userName}`)
-            .set(email, (error) => {
+            .set({ userType, password, gender, salt }, (error) => {
                 if (error) {
                     reject(error);
                 } else {
