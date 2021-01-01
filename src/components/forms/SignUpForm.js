@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Input, Select, Button } from "../ui/UserInterface";
 import { setUserData, setPasswordList } from "../server/ContactServer";
 import { collect, hashAndPack, handleChange } from "../auxilary/Constant";
-import Validate from "./Validate";
 
 const handleOnSubmit = (event) => {
     event.preventDefault();
     const user = hashAndPack(collect(event.target.elements));
-    const { userName, password, salt } = user;
     console.log(user);
 };
 

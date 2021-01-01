@@ -24,7 +24,6 @@ const Projects = () => {
             )
         );
     }, []);
-
     return projects;
 };
 

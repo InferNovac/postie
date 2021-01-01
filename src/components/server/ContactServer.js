@@ -29,7 +29,7 @@ export const setUserData = ({ gender, userType, userName }) =>
             });
     });
 
-export const setPasswordList = (userName, password, salt) =>
+export const setPasswordList = ({ userName, password, salt }) =>
     new Promise((resolve, reject) => {
         firebase
             .database()
@@ -91,7 +91,7 @@ export const setStorage = (image) =>
                 if (response.ref !== null) {
                     resolve(true);
                 } else {
-                    resolve(false);
+                    reject(false);
                 }
             })
             .catch((error) => reject(error));
@@ -121,7 +121,7 @@ export const getUserCredentials = (userName, passwordToCheck) =>
             .once("value")
             .then((response) => {
                 if (response.val() === null) {
-                    resolve(false);
+                    reject(false);
                 }
 
                 const { password, salt } = response.val();
@@ -130,16 +130,16 @@ export const getUserCredentials = (userName, passwordToCheck) =>
             .catch((error) => reject(error));
     });
 
-export const getUserData = (userName) =>
+export const getUser = (userName) =>
     new Promise((resolve, reject) => {
-        firebase.database
-            .ref(`users/${userName}}`)
+        firebase
+            .database()
+            .ref(`users/${userName}`)
             .once("value")
             .then((response) => {
                 if (response.val() === null) {
-                    resolve(false);
+                    reject(false);
                 }
-
                 resolve(response.val());
             })
             .catch((error) => reject(error));
@@ -162,6 +162,11 @@ export const getAllPosts = () =>
             .database()
             .ref("posts/")
             .once("value")
-            .then((response) => resolve(Object.values(response.val())))
+            .then((response) => {
+                if (response.val() === null) {
+                    reject("No posts");
+                }
+                resolve(Object.values(response.val()));
+            })
             .catch((error) => reject(error));
     });
