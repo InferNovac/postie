@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Input, Button } from "../ui/UserInterface";
 import { handleChange, collect } from "../auxilary/Constant";
+import { getUserCredentials } from "../server/ContactServer";
+
 const handleOnSubmit = (event) => {
     event.preventDefault();
     const { userName, password } = collect(event.target.elements);
+    getUserCredentials(userName, password)
+        .then((response) => console.log(response))
+        .catch((error) => console.error(error));
 };
 
 const UserName = () => {

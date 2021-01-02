@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, TextArea } from "../ui/UserInterface";
+import { setPost, setStorage } from "../server/ContactServer";
 import { handleChange, collect } from "../auxilary/Constant";
 
 const handleImage = (event, callback) => {
@@ -9,7 +10,15 @@ const handleImage = (event, callback) => {
 const handleOnSubmit = (event, image) => {
     event.preventDefault();
     const post = collect(event.target.elements);
-    const userName = "AdminAccount";
+    const userName = "Test";
+    Promise.all([
+        setPost({
+            ...post,
+            userName: userName,
+            imageName: image.name,
+        }),
+        setStorage(image),
+    ]);
 };
 
 const Title = () => {
