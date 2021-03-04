@@ -1,19 +1,59 @@
-import * as firebase from "firebase/app";
-import "firebase/database";
-import "firebase/storage";
-import { passwordVerify } from "../auxilary/Hash";
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+import { passwordVerify } from '../auxilary/Hash';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBdpf_wxtSI1tFtQCNNST1q-OXlfF6K0kU",
-    authDomain: "create-react-investment.firebaseapp.com",
-    databaseURL: "https://create-react-investment.firebaseio.com",
-    projectId: "create-react-investment",
-    storageBucket: "create-react-investment.appspot.com",
-    messagingSenderId: "779045166015",
-    appId: "1:779045166015:web:9c9e3ab9c07b9f414f1f0a",
+    apiKey: 'AIzaSyB1JOo-1nY2-_UmUufQaD40r_g4AVp884M',
+    authDomain: 'postie-60558.firebaseapp.com',
+    databaseURL:
+        'https://postie-60558-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'postie-60558',
+    storageBucket: 'postie-60558.appspot.com',
+    messagingSenderId: '946951264876',
+    appId: '1:946951264876:web:1d149570c9f82ada6b1649',
 };
 
 firebase.initializeApp(firebaseConfig);
+const authenticate = firebase.auth;
+const actionCodeSettings = {
+    url: 'https://postie-60558.web.app/sign-up',
+    handleCodeInApp: true,
+};
+
+authenticate().onAuthStateChanged((firebaseUser) => {
+    if (firebaseUser) {
+        console.log(firebaseUser);
+    } else {
+        console.log('not logged in !');
+    }
+});
+
+export const sendSignInLinkToEmail = (email) =>
+    authenticate().sendSignInLinkToEmail(email, actionCodeSettings);
+
+const signInWithEmailLink = (email, href) =>
+    new Promise((resolve, reject) => {
+        authenticate()
+            .signInWithEmailLink(email, href)
+            .then((result) => {
+                window.localStorage.removeItem('email');
+                resolve(result.user);
+            })
+            .catch((error) => reject(error));
+    });
+
+export const isSignInWithEmailLink = () =>
+    new Promise((resolve, reject) => {
+        let email = window.localStorage.getItem('email');
+        if (!email) {
+            email = window.prompt('Provide the email for your confirmation.');
+        }
+        signInWithEmailLink(email, window.location.href)
+            .then((result) => resolve(result))
+            .catch((error) => reject(error));
+    });
 
 export const setUserData = ({ gender, userType, userName }) =>
     new Promise((resolve, reject) => {
@@ -45,7 +85,7 @@ export const setPasswordList = (userName, password, salt) =>
 
 export const setPost = ({ description, title, userName, imageName }) =>
     new Promise((resolve, reject) => {
-        const key = firebase.database().ref().child("posts").push().key;
+        const key = firebase.database().ref().child('posts').push().key;
         const updates = {};
         const post = {
             title: title,
@@ -102,7 +142,7 @@ export const getUsername = (userName) =>
         firebase
             .database()
             .ref(`userNames/${userName}`)
-            .once("value")
+            .once('value')
             .then((response) => {
                 if (response.val() !== null) {
                     resolve(true);
@@ -118,7 +158,7 @@ export const getUserCredentials = (userName, passwordToCheck) =>
         firebase
             .database()
             .ref(`passwords/${userName}`)
-            .once("value")
+            .once('value')
             .then((response) => {
                 if (response.val() === null) {
                     resolve(false);
@@ -134,7 +174,7 @@ export const getUserData = (userName) =>
     new Promise((resolve, reject) => {
         firebase.database
             .ref(`users/${userName}}`)
-            .once("value")
+            .once('value')
             .then((response) => {
                 if (response.val() === null) {
                     resolve(false);
@@ -160,8 +200,8 @@ export const getAllPosts = () =>
     new Promise((resolve, reject) => {
         firebase
             .database()
-            .ref("posts/")
-            .once("value")
+            .ref('posts/')
+            .once('value')
             .then((response) => resolve(Object.values(response.val())))
             .catch((error) => reject(error));
     });

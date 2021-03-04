@@ -1,21 +1,21 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./nav.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './nav.css';
 
 const Nav = () => (
-    <nav className="navbar">
+    <nav className='navbar'>
         <NavLink
-            to="/"
-            title="CREATE-REACT-INVESTMENT"
-            className="navbar-brand"
+            to='/'
+            title='CREATE-REACT-INVESTMENT'
+            className='navbar-brand'
         >
-            CREATE-REACT-INVESTMENT
+            POSTIE
         </NavLink>
-        <div className="navbar-items">
-            <NavLink to="/sign-up" title="Sign Up">
+        <div className='navbar-items'>
+            <NavLink to='/sign-up' title='Sign Up'>
                 Sign Up
             </NavLink>
-            <NavLink to="/login" title="Log In">
+            <NavLink to='/login' title='Log In'>
                 Log In
             </NavLink>
         </div>
